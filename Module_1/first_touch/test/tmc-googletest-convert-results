@@ -1,0 +1,82 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'nokogiri'
+require 'json'
+
+if ARGV.length > 1
+    puts "Usage: #{$0} [path-to-test-result-directory]"
+    exit 1
+elsif ARGV.length == 1
+    Dir.chdir(ARGV[0])
+end
+
+suite_points = {}
+test_points = {}
+
+exec 'make && make get-points'
+puts "Generated points file"
+
+IO.readlines('tmc_available_points.txt').map(&:strip).each do |line|
+    if line =~ /\[(suite|test)\] \[(.*)\] (.*)/
+        type = $1
+        name = $2
+        points = $3.split(' ')
+        result = if type == 'suite' then suite_points else test_points end
+        result[name] ||= []
+        result[name] += points
+    else
+        puts "Warning: weird line in available points file:"
+        puts line
+    end
+end
+
+
+result = []
+
+document = Nokogiri::XML::Document.parse(File.read('tmc_test_results.xml')) { |config| config.nonet }
+document.css('testsuite').each do |testsuite|
+    suite_name = testsuite['name']
+
+    testsuite.css('testcase').each do |testcase|
+        test_name = testcase['name']
+        if testsuite['failures'] == '0' then 
+            result << {
+                className: suite_name,
+                methodName: test_name,
+                message: "All ok.",
+                status: 'PASSED',
+                pointNames: (suite_points["test"] || []) + (test_points["test_first"] || [])
+            }             
+        else
+            result << {
+                className: suite_name,
+                methodName: test_name,
+                message: testcase.css('failure')[0]['message'],
+                status: 'FAILED',
+                pointNames: (suite_points["test"] || []) + (test_points["test_first"] || [])
+            }
+        end
+    end
+end
+
+#result << {
+#    className: "test",
+#    methodName: "test_first",
+#    message: "This is a test",
+#    status: 'FAILED',
+#    pointNames: (suite_points["test"] || []) + (test_points["test_first"] || [])
+#}
+
+#document = Nokogiri::XML::Document.parse(File.read('tmc_test_results.xml')) { |config| config.nonet }
+#document.css('testsuite').each do |testsuite|
+#    suite_name = testsuite['name']
+#    status = if testsuite['failures'] == '0' then 'PASSED' else 'FAILED' end
+#    result << {
+#       methodName: suite_name,
+#       status: status
+#    }
+#end
+
+puts JSON.generate(result)
+
+

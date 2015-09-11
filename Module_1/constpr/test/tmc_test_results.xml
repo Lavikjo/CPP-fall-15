@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="7" failures="0" disabled="0" errors="0" timestamp="2015-09-09T22:12:17" time="0.001" name="AllTests">
+  <testsuite name="test_constpr" tests="7" failures="0" disabled="0" errors="0" time="0.001">
+    <testcase name="test_str_print1" status="run" time="0" classname="test_constpr" />
+    <testcase name="test_str_print2" status="run" time="0" classname="test_constpr" />
+    <testcase name="test_str_modifier" status="run" time="0" classname="test_constpr" />
+    <testcase name="test_vector_add" status="run" time="0" classname="test_constpr" />
+    <testcase name="test_vector_add2" status="run" time="0" classname="test_constpr" />
+    <testcase name="test_vector_add2_2" status="run" time="0" classname="test_constpr" />
+    <testcase name="test_const" status="run" time="0.001" classname="test_constpr" />
+  </testsuite>
+</testsuites>

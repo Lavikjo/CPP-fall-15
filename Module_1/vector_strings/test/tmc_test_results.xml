@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="4" failures="0" disabled="0" errors="0" timestamp="2015-09-09T21:03:43" time="0.003" name="AllTests">
+  <testsuite name="test_vector_strings" tests="4" failures="0" disabled="0" errors="0" time="0.003">
+    <testcase name="test_reader" status="run" time="0.001" classname="test_vector_strings" />
+    <testcase name="test_add" status="run" time="0" classname="test_vector_strings" />
+    <testcase name="test_remove" status="run" time="0.001" classname="test_vector_strings" />
+    <testcase name="test_print" status="run" time="0.001" classname="test_vector_strings" />
+  </testsuite>
+</testsuites>

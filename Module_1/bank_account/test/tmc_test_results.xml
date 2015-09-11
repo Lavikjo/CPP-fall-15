@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="8" failures="0" disabled="0" errors="0" timestamp="2015-09-09T23:05:30" time="0" name="AllTests">
+  <testsuite name="test_bank_account" tests="6" failures="0" disabled="0" errors="0" time="0">
+    <testcase name="test_constructor" status="run" time="0" classname="test_bank_account" />
+    <testcase name="test_getOwner" status="run" time="0" classname="test_bank_account" />
+    <testcase name="test_getNumber" status="run" time="0" classname="test_bank_account" />
+    <testcase name="test_getBalance" status="run" time="0" classname="test_bank_account" />
+    <testcase name="test_deposit" status="run" time="0" classname="test_bank_account" />
+    <testcase name="test_withdraw" status="run" time="0" classname="test_bank_account" />
+  </testsuite>
+  <testsuite name="test_bank_account2" tests="2" failures="0" disabled="0" errors="0" time="0">
+    <testcase name="test_transfer" status="run" time="0" classname="test_bank_account2" />
+    <testcase name="test_print" status="run" time="0" classname="test_bank_account2" />
+  </testsuite>
+</testsuites>

@@ -1,0 +1,3 @@
+Book: The C++ programming language, author: Stroustrup, Bjarne, ISBN: 978-0-321-56384-2, loaned 0, due date: 0-0-0
+Book: C++ primer, author: Lippman, Stanley B., ISBN: 978-0-321-71411-4, loaned 1, due date: 11-10-2015
+Book: Test book, author: Test author, ISBN: 978-0-362-667-2, loaned 0, due date: 11-10-2015

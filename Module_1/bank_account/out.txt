@@ -1,0 +1,2 @@
+Account num: 12345, owned by: Roope Rikas, balance: 57.2354 eur.
+Account num: 53457, owned by: Kaisa Köyhä, balance: 12.5267 eur.
