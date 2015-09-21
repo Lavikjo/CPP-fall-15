@@ -272,9 +272,13 @@ TEST(test_customer2, test_getLoans) {
     b2.restore();
     c2.loanBook(b2);
 
-    EXPECT_EQ("The C++ programming language", c.getLoans()[0].getName()); 
-    EXPECT_EQ("Test book", c2.getLoans()[0].getName());
-    EXPECT_EQ("C++ primer", c2.getLoans()[1].getName());
+    auto c_loans = c.getLoans();
+    auto c2_loans = c2.getLoans();
+    EXPECT_EQ(1, c_loans.size());
+    EXPECT_EQ(2, c2_loans.size());
+    EXPECT_EQ("The C++ programming language", c_loans[0].getName());
+    EXPECT_EQ("Test book", c2_loans[0].getName());
+    EXPECT_EQ("C++ primer", c2_loans[1].getName());
 }
 
 TEST(test_customer2, test_returnBook) {

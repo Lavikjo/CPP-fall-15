@@ -26,3 +26,5 @@ specify and implement the following functions:
     that contains integers, and appends value 9 to the end of the
     vector (even though the pointer is unmodifiable, the vector that
     it points to is not). This function does not return anything.
+
+**Hint:** Remember to check the FAQ on [const correctness](https://isocpp.org/wiki/faq/const-correctness).

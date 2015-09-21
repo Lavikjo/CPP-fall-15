@@ -104,26 +104,47 @@ TEST(test_constpr, test_vector_add2_2){
 }
 
 TEST(test_constpr, test_const){
-    //open file
-    std::ifstream in;
-    in.open("../src/constpr.cpp");
-    if(in.is_open()){
+    void str_print_proper(std::string const & );
+    void vector_add2_proper(std::vector<int> * const);
+
+    auto str_print_has_correct_signature = [&]() -> bool {
+        return typeid(str_print) == typeid(str_print_proper);
+    };
+    auto vector_add2_has_correct_signature = [&]() -> bool {
+        return typeid(vector_add2) == typeid(vector_add2_proper);
+    };
+    auto vector_add2_according_to_spec = []() -> bool {
+        // void fun(std::vector<int> *) and void fun2(std::vector<int> * const)
+        // have identical external typeids, so check manually that there exists
+        // a const, as specified
+        //open file
+        std::ifstream in;
         std::string line;
-        while(1){
-            std::getline(in, line);
-            if(line.find("str_print(")!=std::string::npos)
-                break;
+        in.open("../src/constpr.cpp");
+
+        if(!in.is_open()){
+            in.open("src/constpr.cpp");
         }
-        EXPECT_GT(30, line.find("const"));
-        
-        while(1){
-            std::getline(in, line);
-            if(line.find("vector_add2(")!=std::string::npos)
-                break;
+        EXPECT_TRUE(in.is_open()) << "Could not open file ../src/constpr.cpp";
+
+        while(std::getline(in, line)){
+            // Eww
+            if((line.find("vector_add2")!=std::string::npos) &&
+               (line.find("const") != std::string::npos ))
+            {
+                return true;
+            }
         }
-        EXPECT_GE(40, line.find("const")) << "no const with function that needs it!" ; 
-    
-    }
+        return false;
+    };
+
+    EXPECT_TRUE(str_print_has_correct_signature())
+        << ">>> has no const or const is in wrong place!" ;
+    EXPECT_TRUE(vector_add2_has_correct_signature())
+        << ">>> has no const or const is in wrong place!" ;
+    EXPECT_TRUE(vector_add2_according_to_spec())
+        << ">>> has no const or const is in wrong place!" ;
+
 }
 
 
