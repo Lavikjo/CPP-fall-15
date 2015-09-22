@@ -9,48 +9,24 @@
 
 
 Matrix readMatrix(int n) {
-	Matrix m(n,n);
+	Matrix m;
 	int number;
 	std::vector<int> row;
-	/*
-	while(amount != limit) {
-		while(x != n) {
-			
+
+
+	for(int y = 0; y < n;y++) {
+		m.push_back(row);
+
+		for(int x = 0; x < n;x++) {
 			std::cin >> number;
-			Matrix[y][x] = number;
-			amount++;
-			x++;
-		}
-		x = 0;
+			m.at(y).push_back(number);
 
-		y++;
-	}
-
-
-	return Matrix;
-*/
-/*
-	for(int y = 0; y < n; y++) {
-		for(int x = 0; x < n; x++) {
-			if (amount != limit) {
-				std::cin >> number;
-				m = number;
-			}
-		}
-	
-	return m;
-	}
-	*/
-
-	for(auto y = 0; y < n; y++) {
-		row =  m[y];
-		for(auto x = 0; x < n; x++) {
-			std::cin >> number;
-			x = number;
 		}
 	}
 	return m;
+
 }
+
 Matrix rotate90deg(Matrix & m) {
 	Matrix copy = m;
 	// read y-axis vectors containing x-axis vector
