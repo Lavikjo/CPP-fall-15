@@ -2,6 +2,7 @@
 #include <vector>
 #include <math.h>
 #include "matrix.hpp"
+#include <sstream>
 
 // Remember to use auto and ranged for-loops when they can be used!
 // Assumes 'm' is a square matrix
@@ -33,16 +34,22 @@ Matrix rotate90deg(Matrix & m) {
 	std::vector<int> row;
 
 	for(int y = 0; y < n;y++) {
-			copy[y][] = m.y;
 		for(int x = 0; x < n;x++) {
-			copy.at(y) = m.at(x);
-			copy.at(x) = m.at(y);
+			copy.at(y).at(x) = m.at(x).at(y);
 
 		}
 	}
-	return m;
+	return copy;
 }
 
 void print(Matrix & m){
+	std::stringstream ss;
     std::cout << "Printing out a " << m.size() << " x " << m.size() << " matrix:" << std::endl;
+    for(auto& y: m) {
+    	for(auto& x: y) {
+    		ss << x << " ";
+    	}
+    	ss << std::endl;
+    }
+    std::cout << ss.str() << std::endl;
 }
