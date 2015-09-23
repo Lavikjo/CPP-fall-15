@@ -29,6 +29,17 @@ Matrix readMatrix(int n) {
 
 Matrix rotate90deg(Matrix & m) {
 	Matrix copy = m;
+	int n = m.size();
+	std::vector<int> row;
+
+	for(int y = 0; y < n;y++) {
+			copy[y][] = m.y;
+		for(int x = 0; x < n;x++) {
+			copy.at(y) = m.at(x);
+			copy.at(x) = m.at(y);
+
+		}
+	}
 	return m;
 }
 
