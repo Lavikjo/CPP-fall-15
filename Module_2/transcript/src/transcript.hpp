@@ -15,7 +15,7 @@ typedef struct Transcript_t {
 void addTranscript(std::list<Transcript>& registry, const Transcript& t);
 
 /* Removes all transcripts with the given student_id */
-void removeTranscript(std::list<Transcript>& registry, const std::string& student_id);
+void removeTranscript(std::list<Transcript>& registry, const std::string& id);
 
 /* Returns an iterator to first transcript with the given student_id
  * If no such transcript is found, the end iterator is returned */
