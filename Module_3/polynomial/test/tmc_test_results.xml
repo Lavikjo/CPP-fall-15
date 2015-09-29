@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="10" failures="0" disabled="0" errors="0" timestamp="2015-09-30T00:54:10" time="0.001" name="AllTests">
+  <testsuite name="test_poly" tests="4" failures="0" disabled="0" errors="0" time="0.001">
+    <testcase name="test_modify" status="run" time="0.001" classname="test_poly" />
+    <testcase name="test_iterators" status="run" time="0" classname="test_poly" />
+    <testcase name="test_access" status="run" time="0" classname="test_poly" />
+    <testcase name="test_negate" status="run" time="0" classname="test_poly" />
+  </testsuite>
+  <testsuite name="test_poly2" tests="2" failures="0" disabled="0" errors="0" time="0">
+    <testcase name="test_add" status="run" time="0" classname="test_poly2" />
+    <testcase name="test_substract" status="run" time="0" classname="test_poly2" />
+  </testsuite>
+  <testsuite name="test_poly3" tests="4" failures="0" disabled="0" errors="0" time="0">
+    <testcase name="test_equal" status="run" time="0" classname="test_poly3" />
+    <testcase name="test_not_equal" status="run" time="0" classname="test_poly3" />
+    <testcase name="test_smaller" status="run" time="0" classname="test_poly3" />
+    <testcase name="test_bigger" status="run" time="0" classname="test_poly3" />
+  </testsuite>
+</testsuites>

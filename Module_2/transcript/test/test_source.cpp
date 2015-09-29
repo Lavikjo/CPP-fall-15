@@ -241,10 +241,9 @@ TEST(test_transcript2, test_find_course_results) {
 
     auto list  = findCourseResults(reg, "C++ programming");
 
-
-    EXPECT_EQ("C++ programming", (*list.begin()).first);
-    EXPECT_EQ("C++ programming", (*std::next(list.begin(), 1)).first);
-    EXPECT_EQ("C++ programming", (*std::next(list.begin(), 2)).first);
+    EXPECT_EQ("123456", (*list.begin()).first);
+    EXPECT_EQ("347657", (*std::next(list.begin(), 1)).first);
+    EXPECT_EQ("092854", (*std::next(list.begin(), 2)).first);
 
     EXPECT_EQ(2, (*list.begin()).second);
     EXPECT_EQ(5, (*std::next(list.begin(), 1)).second);

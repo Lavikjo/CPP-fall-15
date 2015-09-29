@@ -37,7 +37,7 @@ TEST(test_matrix, test_rotate) {
 
     for(int i=0; i<5; i++)
         for(int j=0; j<5; j++)
-            EXPECT_EQ(c[i][j], m[i][j]);
+            EXPECT_EQ(c[i][j], m[i][j]) << " when i=" << i << " j=" << j;
 }
 
 TEST(test_matrix, test_print) {

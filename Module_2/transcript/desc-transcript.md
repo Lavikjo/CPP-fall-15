@@ -18,9 +18,14 @@ and **removeTranscript** that will add and remove entries from
 transcript list.
 
 You will gain a second point by implementing function
-**findTranscript** that will find entries based on student ID, and
-**findCourseResults** that will return list of student ID/grade pairs
-corresponding to course.
+**findTranscript** and **findCourseResults**:
+
+- **findTranscript** should find entries based on student ID
+
+- **findCourseResults** should return a list of student ID/grade pairs
+    corresponding to a course name.
+
+`NOTE: findCourseResults description and test cases corrected on 2015-09-24 19:46`
 
 These functions will not require many lines of code if you use
 algorithms efficiently.
