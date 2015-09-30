@@ -56,8 +56,11 @@ void Software::fixBug(const std::string& id) {
 		throw std::runtime_error("The software_fix_bug function failed");
 	}
 }
+struct Software_s* Software::getPtr()  {
+	return soft_ptr;
+}
 
-std::ostream& operator<<(std::ostream& os, Software& sw) {
+std::ostream& operator<<(std::ostream& os, const Software& sw) {
 	software_print_bug_report(sw.soft_ptr);
 	return os;
 }

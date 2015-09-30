@@ -87,13 +87,14 @@ class Software {
         /* Other requirements:
          * -------------------
          */
-         friend std::ostream& operator<<(std::ostream&, Software&);
+         friend std::ostream& operator<<(std::ostream&, const Software& );
         /* Output stream, << -operator overload:
          *
          * An overloaded output stream operator that uses the C implementation to
          * print the software to the output stream.
          *
          */
+         struct Software_s* getPtr();
     private:
 
         struct Software_s* soft_ptr;

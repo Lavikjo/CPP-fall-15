@@ -83,6 +83,9 @@ class Bug {
          */
          struct Bug_s* getPtr();
         
+
+
+        friend std::ostream& operator<<(std::ostream &os, const Bug& bug);
     private:
 
         /* A pointer to a Bug_s structure. This is the link between the wrapper and
@@ -95,7 +98,7 @@ class Bug {
 /* Other requirements:
          * -------------------
          */
-         std::ostream& operator<<(std::ostream &os, Bug& bug);
+         
         /* Output stream, << -operator overload:
          *
          * An overloaded output stream operator that uses the C implementation to

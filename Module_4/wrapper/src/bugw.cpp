@@ -60,8 +60,8 @@ struct Bug_s* Bug::getPtr() {
 	return bug_ptr;
 }
 
-std::ostream& operator<<(std::ostream &os, Bug& bug) {
+std::ostream& operator<<(std::ostream &os, const Bug& bug) {
 	
-	bug_print(bug.getPtr());
+	bug_print(bug.bug_ptr);
 	return os;
 }
