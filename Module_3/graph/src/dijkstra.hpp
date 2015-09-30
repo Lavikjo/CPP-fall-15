@@ -22,7 +22,51 @@
 
 /* Write the template here - you can delete the given shortestPaths as it
  * is replaced by the generic implementation */
+template <typename V, typename Traits>
+std::map<V, size_t> shortestPaths(const Graph<V, Traits> &graph, const typename Graph<V, Traits>::vertex_type &source)
+{
+    // Infinity constant
+    const size_t inf = ~0;
+    // All vertices within the graph
+    typename Graph<V, Traits>::vertex_list_type vertices = graph.getVertices();
+    // Initialisations - distance and knowledge of previous nodes
+    std::map<V, size_t> distance;
+    for (typename Graph<V, Traits>::vertex_list_type::iterator iter = vertices.begin();iter != vertices.end();iter++)
+        distance[*iter] = inf;
+    std::map<V, V> previous;
+    // From source to source
+    distance[source] = 0;
 
+    while (!vertices.empty())
+    {
+        // Find the vertex with the shortest distance
+        V min = vertices.front();
+        for (typename Graph<V, Traits>::vertex_list_type::const_iterator iter = vertices.begin();iter != vertices.end();iter++)
+            if (distance[min] > distance[*iter])
+                min = *iter;
+        // Break if no further vertices are accessible
+        if (distance[min] == inf)
+            break;
+        // Remove this vertex from the list of vertices and obtain neighbours
+        vertices.erase(std::find(vertices.begin(), vertices.end(), min));
+        typename Graph<V, Traits>::edge_list_type neighbours = graph.getNeighbours(min);
+        for (typename Graph<V, Traits>::edge_list_type::const_iterator iter = neighbours.begin();iter != neighbours.end();iter++)
+        {
+            size_t d = distance[min] + iter->weight;
+            // Updade distance if necessary
+            if (d < distance[iter->second])
+            {
+                distance[iter->second] = d;
+                previous[iter->second] = min;
+            }
+        }
+    }
+    return distance;
+}
+
+
+
+/*
 std::map<int, size_t> shortestPaths(const Graph<int> &graph, const V &source)
 {
     // Infinity constant
@@ -63,5 +107,5 @@ std::map<int, size_t> shortestPaths(const Graph<int> &graph, const V &source)
     }
     return distance;
 }
-
+*/
 #endif

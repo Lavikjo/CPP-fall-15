@@ -53,16 +53,11 @@ template <typename V, typename Traits>
 const typename Graph<V, Traits>::edge_list_type& Graph<V, Traits>::getEdges() const {
   return this->edges;
 }
-/*
-template <typename V, typename T>
-bool sortVertices(V ver1, V ver2) {
-  return ver1 < ver2;
-}
-*/
+
 
 template <typename V, typename Traits>
 typename Graph<V, Traits>::vertex_list_type Graph<V, Traits>::getVertices() const {
-  Graph<V, Traits>::vertex_list_type vertex_list;
+  typename Graph<V, Traits>::vertex_list_type vertex_list;
 
   for(typename Graph<V, Traits>::edge_list_type::iterator it = this->getEdges().begin(); it != this->getEdges().end(); it++) {
 
@@ -76,8 +71,8 @@ typename Graph<V, Traits>::vertex_list_type Graph<V, Traits>::getVertices() cons
 }
 
 template <typename V, typename Traits>
-typename Graph<V, Traits>::edge_list_type Graph<V, Traits>::getNeighbours(const Graph<V, Traits>::vertex_type& ver) const {
-  Graph<V, Traits>::edge_list_type edge_list;
+typename Graph<V, Traits>::edge_list_type Graph<V, Traits>::getNeighbours(const typename Graph<V, Traits>::vertex_type& ver) const {
+ typename Graph<V, Traits>::edge_list_type edge_list;
 
   for(typename Graph<V, Traits>::edge_list_type::iterator it = this->getEdges().begin();  it != this->getEdges().end(); it++) {
     if(it->first == ver) {
@@ -88,54 +83,77 @@ typename Graph<V, Traits>::edge_list_type Graph<V, Traits>::getNeighbours(const 
 }
 
 template <typename V, typename Traits>
-typename Graph<V, Traits>::edge_type oppositeEdge(const Graph<V, Traits>::edge_type &edg) {
-  typename Graph<V, Traits>::edge_type opposite = Graph<V, Traits>::edge_type(edg.second, edg.first, edg.weight);
-  return opposite;
-}
+void Graph<V, Traits>::insertEdge(const typename Graph<V, Traits>::edge_type &edge) {
+  
+  for(typename Graph<V, Traits>::edge_list_type::iterator it = this->edges.begin(); it != this->edges.end();it++ ) {
+    if((it->first == edge.first) & (it->second == edge.second) & (it->weight != edge.weight)) {
+      // almost the same except different weight
+      // remove the original
+      this->edges.erase(it);
+      return;
+    }
+  }
 
-template <typename V, typename Traits>
-typename Graph<V, Traits>::edge_type unWeightEdge(const  Graph<V, Traits>::edge_type &edg) {
-  typename Graph<V, Traits>::edge_type unweighted = Graph<V, Traits>::edge_type(edg.first, edg.second, 1);
-  return unweighted;
-}
-
-template <typename V, typename Traits>
-void typename Graph<V, Traits>::insertEdge( const  Graph<V, Traits>::vertex_type &edge) {
-
-
-  if(this->weighted) {
+  if(not this->weighted) {
 
     if(this->directed) {
 
       this->edges.insert(edge);
+      }
+    } else {
+      // graph is undirected --> insert opposite edge aswell
+      this->edges.insert(edge);
+      this->edges.insert(Graph<V, Traits>::edge_type(edge.second,edge.first,edge.weight));
     
-    } else {
-      // graph is undirected --> insert opposite edge aswell
-      this->edges.insert(edge);
-      this->edges.insert(oppositeEdge(edge));
     }
-
-  } else { 
 
     if(this->directed) {
 
-      this->edges.insert(unWeightEdge(edge));
+      this->edges.insert(Graph<V, Traits>::edge_type(edge.first,edge.second, 1));
     } else {
       // graph is undirected --> insert opposite edge aswell
-      this->edges.insert(unWeightEdge(edge));
-      this->edges.insert(unWeightEdge(oppositeEdge(edge)));c 
-    }
+      this->edges.insert(Graph<V, Traits>::edge_type(edge.first,edge.second, 1));
+      this->edges.insert(Graph<V, Traits>::edge_type(edge.second,edge.first, 1));
+      
 
   }
 }
 
+
 template <typename V, typename Traits>
-void typename Graph<V, Traits>::eraseEdge(const  Graph<V, Traits>::edge_type  &edge) {
+void Graph<V, Traits>::eraseEdge(const Graph<V, Traits>::edge_type  &edge) {
   if(this->directed) {
   this->edges.erase(edge);
   } else {
     this->edges.erase(edge);
-    this->edges.erase(oppositeEdge(edge));
+    this->edges.erase(Graph<V, Traits>::edge_type(edge.second,edge.first, edge.weight));
   }
 }
 
+template <typename V, typename Traits>
+std::ostream& operator<<(std::ostream &os, const Graph<V, Traits> &graph) {
+    bool sameOrigin = false;
+
+    typename Graph<V, Traits>::edge_list_type edge_list = graph.edges;
+
+    for(typename Graph<V, Traits>::edge_list_type::const_iterator it = edge_list.begin(); it != edge_list.end(); it++) {
+        if(it->first != temp){
+        os << it->first << " :";
+        }
+        typename Graph<V, Traits>::edge_list_type neighbours = graph.getNeighbours(it->first);
+    
+        for(typename Graph<V, Traits>::edge_list_type::const_iterator it2 = neighbours.begin(); it2 != neighbours.end(); it2++) {
+
+            os << " " << it2->second << "(" << it2->weight << ")";
+        }
+        if(it->first != temp) {
+            os << std::endl;
+        }
+        V temp = it->first;
+    }
+
+    return os;
+}
+
+template <typename V, typename Traits>
+Graph<V, Traits>::Graph() {}
