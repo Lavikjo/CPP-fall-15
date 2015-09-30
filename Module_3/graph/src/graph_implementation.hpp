@@ -53,11 +53,12 @@ template <typename V, typename Traits>
 const typename Graph<V, Traits>::edge_list_type& Graph<V, Traits>::getEdges() const {
   return this->edges;
 }
-
+/*
 template <typename V, typename T>
 bool sortVertices(V ver1, V ver2) {
   return ver1 < ver2;
 }
+*/
 
 template <typename V, typename Traits>
 typename Graph<V, Traits>::vertex_list_type Graph<V, Traits>::getVertices() const {
@@ -69,13 +70,13 @@ typename Graph<V, Traits>::vertex_list_type Graph<V, Traits>::getVertices() cons
     vertex_list.push_back(it->second);
   }
   // sort vertices first
-  vertex_list.sort(sortVertices);
+  vertex_list.sort();
 
   return vertex_list;
 }
 
 template <typename V, typename Traits>
-typename Graph<V, Traits>::edge_list_type Graph<V, Traits>::getNeighbours(const V& ver) const {
+typename Graph<V, Traits>::edge_list_type Graph<V, Traits>::getNeighbours(const Graph<V, Traits>::vertex_type& ver) const {
   Graph<V, Traits>::edge_list_type edge_list;
 
   for(typename Graph<V, Traits>::edge_list_type::iterator it = this->getEdges().begin();  it != this->getEdges().end(); it++) {
@@ -87,19 +88,19 @@ typename Graph<V, Traits>::edge_list_type Graph<V, Traits>::getNeighbours(const 
 }
 
 template <typename V, typename Traits>
-typename Graph<V, Traits>::edge_type oppositeEdge(const typename Graph<V, Traits>::edge_type &edge) {
-  typename Graph<V, Traits>::edge_type opposite = Graph<V, Traits>::edge_type(edge.second, edge.first, edge.weight);
+typename Graph<V, Traits>::edge_type oppositeEdge(const Graph<V, Traits>::edge_type &edg) {
+  typename Graph<V, Traits>::edge_type opposite = Graph<V, Traits>::edge_type(edg.second, edg.first, edg.weight);
   return opposite;
 }
 
 template <typename V, typename Traits>
-typename Graph<V, Traits>::edge_type unWeightEdge(const typename Graph<V, Traits>::edge_type &edge) {
-  typename Graph<V, Traits>::edge_type unweighted = Graph<V, Traits>::edge_type(edge.first, edge.second, 1);
+typename Graph<V, Traits>::edge_type unWeightEdge(const  Graph<V, Traits>::edge_type &edg) {
+  typename Graph<V, Traits>::edge_type unweighted = Graph<V, Traits>::edge_type(edg.first, edg.second, 1);
   return unweighted;
 }
 
 template <typename V, typename Traits>
-void typename Graph<V, Traits>::insertEdge( const typename Graph<V, Traits>::Edge<V> &edge) {
+void typename Graph<V, Traits>::insertEdge( const  Graph<V, Traits>::vertex_type &edge) {
 
 
   if(this->weighted) {
@@ -129,7 +130,7 @@ void typename Graph<V, Traits>::insertEdge( const typename Graph<V, Traits>::Edg
 }
 
 template <typename V, typename Traits>
-void typename Graph<V, Traits>::eraseEdge(Graph<V, Traits>::Edge<V> const &edge) {
+void typename Graph<V, Traits>::eraseEdge(const  Graph<V, Traits>::edge_type  &edge) {
   if(this->directed) {
   this->edges.erase(edge);
   } else {
