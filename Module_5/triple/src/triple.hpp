@@ -1,3 +1,6 @@
+#ifndef ELEC_CPP_TRIPLES
+#define ELEC_CPP_TRIPLES
+
 /* Add include guards here */
 
 /* Class: Triple
@@ -17,7 +20,14 @@
  * The Triple class should also support the copy constructor, and assignment
  * operations.
  */
- 
+ template(typename T)
+ class Triple {
+ public:
+ 	typename const T& first() const {
+
+ 	}
+
+ };
 
 /* Public member functions:
  * ------------------------
@@ -82,3 +92,4 @@
  */
 
 /* Remember the endif here to close the header guards */
+#endif
