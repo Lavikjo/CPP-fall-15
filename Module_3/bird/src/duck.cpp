@@ -1,3 +1,6 @@
- void speak(std::ostream &os) const {
- 	os << "QUACK";
+ #include <iostream>
+#include "duck.hpp"
+
+ void Duck::speak(std::ostream &os) const {
+ 	os << name <<": QUACK" << std::endl;
  }

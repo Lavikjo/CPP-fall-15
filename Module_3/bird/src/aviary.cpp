@@ -30,8 +30,8 @@ Aviary::~Aviary() {
 }
 
 void Aviary::speakAll(std::ostream &os) const {
-	for(auto& bird : birds) {
-		bird->speak(os);
+	for(auto const& l: birds) {
+		l->speak(os);
 	}
 }
 

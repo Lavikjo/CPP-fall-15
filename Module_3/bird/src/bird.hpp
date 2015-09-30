@@ -43,7 +43,7 @@ public:
     return name;
     }
   
-  private:
+  protected:
     std::string name;
 };
 #endif

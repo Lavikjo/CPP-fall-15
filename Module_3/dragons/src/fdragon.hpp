@@ -17,7 +17,7 @@ class FantasyDragon : public Dragon
      * age: age of the dragon
      * size: size of the dragon
      */
-    FantasyDragon(std::string const& name, size_t age, size_t size);
+    FantasyDragon(std::string const& name, size_t age, size_t size) ;
   
     /* Description:
      * ------------

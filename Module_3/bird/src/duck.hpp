@@ -8,7 +8,7 @@ class Duck: public Bird {
 		Duck(const std::string& n) : Bird(n) {}
 
 
-		virtual void speak(std::ostream &os) const;
+	 	void speak(std::ostream &os) const;
 
 
 };

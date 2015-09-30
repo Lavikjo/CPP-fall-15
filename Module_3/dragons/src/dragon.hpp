@@ -43,31 +43,54 @@ class Dragon
    * classes inherit this class. Each Dragon object has a name (std::string), 
    * age (size_t), size (size_t) and a list of Treasure objects that the Dragon has
    * hoarded.
-   *
+   */
+  public:
+
+    explicit Dragon(std::string const & name, size_t age, size_t size) :
+     name(name), age(age), size(size) {};
+
+     virtual ~Dragon() {}
+
+  /*
    * Functions:
    * ------------
    * The constructor takes the Dragon's name (std::string const&), age (size_t) and 
    * size (size_t) as a parameter and intializes them to the parameter values.
-   *
+   */
+
+   const std::string& getName() const;
+   /*
    * getName: the function returns a constant reference to the Dragon's name and takes
    * no parameters. This function does not change the state of the Dragon object, i.e.
    * the function should be const.
-   *
+   */
+   size_t getAge() const;
+
+   /*
    * getAge: the function returns the Dragon's age as a size_t and takes no parameters. 
    * This function does not change the state of the Dragon object, i.e. the function 
    * should be const.
-   *
+   */
+   size_t getSize() const;
+
+   /*
    * getSize: the function returns the Dragon's size as a size_t and takes no parameters.
    * This function does not change the state of the Dragon object, i.e. the function 
    * should be const.
-   *
+   */
+   const std::list<Treasure>& getTreasures() const;
+   /*
    * getTreasures: the function returns a constant reference to the Dragon's treasures list
    * and takes no parameters. This function does not change the state of the Dragon object, 
    * i.e. the function should be const.
-   *
+   */
+   virtual void eat(std::list<Food>& foods) = 0;
+   /*
    * eat: a pure virtual function, which returns nothing and takes a reference to a list of
    * Food objects as a parameter.
-   *
+   */
+   virtual void hoard(std::list<Treasure>& treasures) = 0;
+   /*
    * hoard: a pure virtual function, which returns nothing and takes a reference to a list of
    * Treasure objects as a parameter.
    *
@@ -77,6 +100,14 @@ class Dragon
    * which inherit this class: name (std::string), age (size_t), size (size_t), treasures 
    * (std::list<Treasure>).
    */
+
+ protected:
+
+  std::string name;
+  size_t age;
+  size_t size;
+  std::list<Treasure> treasures;
+
 };
 
 /* Description:
@@ -117,24 +148,38 @@ class DragonCave
    * Functions:
    * -----------
    * The DragonCave class has a parameterless constructor. 
+   */
+  public:
 
+   DragonCave();
+   /*
    * The destructor of the DragonCave class deletes all the Dragons in the
    * the DragonCave's Dragon* list.
-   *
+   */
+
+   ~DragonCave();
+
+   /*
    * getDragons: the function returns a const reference to the DragonCave's
    * list of Dragon pointers. The function takes no parameters and does not change 
    * the DragonCave's state, i.e. the function should be const.
-   *
+   */
+   const std::list<Dragon*>& getDragons() const;
+   /*
    * accommodateDragon: takes a Dragon* as a parameter and adds it to the end of
    * the DragonCave's Dragon pointer list. The function returns nothing.
-   * 
+   */
+   void accommodateDragon(Dragon* d);
+   /*
    * evictDragon: takes a Dragon's name as a const string reference as a parameter.
    * Tries to find a dragon with a matching name from the DragonCaves Dragon pointer
    * list. Erases the first Dragon pointer with a matching name from the list. If
    * there is no Dragon with a matching name in the list the function does nothing.
    * Note that the function only erases the pointer from the list, but DOES NOT delete
    * the Dragon object. The function returns nothing.
-   *
+   */
+   void evictDragon(const std::string &name);
+   /*
    * Other:
    * -----------
    * The class obviously has a list of Dragon* as a private member. This class is not
@@ -142,9 +187,10 @@ class DragonCave
    * class should be prevented.
    *
    */
-    public:
-    DragonCave();
-    ~DragonCave();
+  private:
+    std::list<Dragon*> dragons;
+    DragonCave & operator=(const DragonCave&) = delete;
+    DragonCave(const DragonCave&) = delete;
 
 };
 
@@ -178,6 +224,6 @@ class DragonCave
  * ------------
  * The parameter output stream.
  */
-std::ostream& operator<<(std::ostream& os, DragonCave const& cave);
+ std::ostream& operator<<(std::ostream& os, DragonCave const& cave);
 
 #endif
