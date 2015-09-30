@@ -43,13 +43,9 @@ public:
     return name;
     }
   
-private:
-  std::string name;
-  
+  private:
+    std::string name;
 };
-
-
-
 #endif
 
 

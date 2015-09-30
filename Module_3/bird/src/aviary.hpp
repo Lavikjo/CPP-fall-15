@@ -10,7 +10,7 @@ class Bird; // Forward declaration
 class Aviary {
     public:
         Aviary() {}
-
+        ~Aviary();
         // When a bird is added to the aviary, it's ownership
         // is transferred. When the aviary is destroyed, all
         // the birds are destroyed too.
@@ -25,7 +25,7 @@ class Aviary {
         void speakAll(std::ostream &os) const;
 
         // Create a new type alias sizeType
-
+        typedef std::vector<Bird>::size_type sizeType; 
         // Returns how many birds there are in the aviary.
         size_t size() const;
 
@@ -39,8 +39,11 @@ class Aviary {
         // Obviously this class must NOT leak any resources.
         // If somebody tries to copy an instance of this class,
         // the compilation must fail.
+        Bird* operator[](int index);
+        const Bird* operator[](int index) const;
 
     private:
+        std::vector<Bird*> birds;
 };
 
 #endif
