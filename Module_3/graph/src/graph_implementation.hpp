@@ -48,3 +48,59 @@
 
 // Write the class member function implementations here
 
+template <typename V, typename Traits>
+const typename Graph<V, Traits>::edge_list_type& Graph<V, Traits>::getEdges() const {
+  return Graph<V, Traits>::edges;
+}
+template <typename T>
+sortVertices(T ver1, T ver2) {
+  return ver1 < ver2;
+}
+
+template <typename V, typename Traits>
+typename Graph<V, Traits>::vertex_list_type Graph<V, Traits>::getVertices() const {
+  Graph<V, Traits>::vertex_list_type vertex_list;
+
+  for(typename Graph<V, Traits>::edge_list_type::iterator it : Graph<V, Traits>::edges {
+
+    vertex_list.push_back(it.first);
+    vertex_list.push_back(it.second);
+  }
+  // sort vertices first
+  vertex_list.sort(vertex_list.begin(), vertex_list.end(), sortVertices);
+
+  return vertex_list;
+}
+
+template <typename V, typename Traits>
+typename Graph<V, Traits>::edge_list_type Graph<V, Traits>::getNeighbours(const V&) const {
+  Graph<V, Traits>::edge_list_type edge_list;
+
+  for(typename Graph<V, Traits>::edge_list_type::iterator it: Graph<V, Traits>::edges {
+    if(it.first == V) {
+      edge_list.push_back(it);
+    }
+  }
+  return edge_list;
+}
+template <typename V, typename Traits>
+typename Graph<V, Traits>::edge_type oppositeEdge(const Graph<V, Traits>::edge_type &edge) {
+  typename Graph<V, Traits>::edge_type opposite;
+  
+}
+
+template <typename V, typename Traits>
+void typename Graph<V, Traits>::insertEdge(const Graph<V, Traits>::Edge<V> &edge) {
+  if(*this.directed) {
+    typename Graph<V, Traits>::edge_list_type::iterator it =  Graph<V, Traits>::edges.insert(edge);
+  } else {
+    // graph is undirected --> insert opposite edge aswell
+    typename Graph
+  }
+}
+
+template <typename V, typename Traits>
+void typename Graph<V, Traits>::eraseEdge(const Graph<V, Traits>::Edge<V> &edge) {
+
+}
+
