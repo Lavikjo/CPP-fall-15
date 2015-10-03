@@ -2,6 +2,7 @@
 #error "Invalid usage of graph_implementation.hh"
 #endif
 
+#include "graph.hpp"
 /* ATTENTION
  * Do NOT #include this file yourself as it is a part of the graph.hh
  *  header and does not work properly if used without the template
@@ -49,12 +50,12 @@
 // Write the class member function implementations here
 
 template <typename V, typename Traits>
-const typename Graph<V, Traits>::edge_list_type& Graph<V, Traits>::getEdges() const{
-  return Graph<V, Traits>::edges;
+const typename Graph<V, Traits>::edge_list_type& Graph<V, Traits>::getEdges() const {
+  return this->edges;
 }
 
 template <typename V, typename T>
-bool sortVertices(Graph<V, Traits>::vertex_type ver1, Graph<V, Traits>::vertex_type ver2) {
+bool sortVertices(V ver1, V ver2) {
   return ver1 < ver2;
 }
 
@@ -62,7 +63,7 @@ template <typename V, typename Traits>
 typename Graph<V, Traits>::vertex_list_type Graph<V, Traits>::getVertices() const {
   Graph<V, Traits>::vertex_list_type vertex_list;
 
-  for(typename Graph<V, Traits>::edge_list_type::iterator it : Graph<V, Traits>::edges) {
+  for(typename Graph<V, Traits>::edge_list_type::iterator it = this->getEdges().begin(); it != this->getEdges().end(); it++) {
 
     vertex_list.push_back(it->first);
     vertex_list.push_back(it->second);
@@ -74,11 +75,11 @@ typename Graph<V, Traits>::vertex_list_type Graph<V, Traits>::getVertices() cons
 }
 
 template <typename V, typename Traits>
-typename Graph<V, Traits>::edge_list_type Graph<V, Traits>::getNeighbours(const V&) const {
+typename Graph<V, Traits>::edge_list_type Graph<V, Traits>::getNeighbours(const V& ver) const {
   Graph<V, Traits>::edge_list_type edge_list;
 
-  for(typename Graph<V, Traits>::edge_list_type::iterator it: Graph<V, Traits>::edges) {
-    if(it->first == V) {
+  for(typename Graph<V, Traits>::edge_list_type::iterator it = this->getEdges().begin();  it != this->getEdges().end(); it++) {
+    if(it->first == ver) {
       edge_list.insert(*it);
     }
   }
@@ -86,53 +87,54 @@ typename Graph<V, Traits>::edge_list_type Graph<V, Traits>::getNeighbours(const 
 }
 
 template <typename V, typename Traits>
-typename Graph<V, Traits>::edge_type oppositeEdge(const Graph<V, Traits>::edge_type &edge) {
+typename Graph<V, Traits>::edge_type oppositeEdge(const typename Graph<V, Traits>::edge_type &edge) {
   typename Graph<V, Traits>::edge_type opposite = Graph<V, Traits>::edge_type(edge.second, edge.first, edge.weight);
   return opposite;
 }
 
 template <typename V, typename Traits>
-typename Graph<V, Traits>::edge_type unWeightEdge(const Graph<V, Traits>::edge_type &edge) {
+typename Graph<V, Traits>::edge_type unWeightEdge(const typename Graph<V, Traits>::edge_type &edge) {
   typename Graph<V, Traits>::edge_type unweighted = Graph<V, Traits>::edge_type(edge.first, edge.second, 1);
   return unweighted;
 }
 
 template <typename V, typename Traits>
-void typename Graph<V, Traits>::insertEdge(const Graph<V, Traits>::Edge<V> &edge) {
+void typename Graph<V, Traits>::insertEdge( const typename Graph<V, Traits>::Edge<V> &edge) {
+
 
   if(this->weighted) {
 
     if(this->directed) {
 
-      Graph<V, Traits>::edges.insert(edge);
+      this->edges.insert(edge);
     
     } else {
       // graph is undirected --> insert opposite edge aswell
-      Graph<V, Traits>::edges.insert(edge);
-      Graph<V, Traits>::edges.insert(oppositeEdge(edge));
+      this->edges.insert(edge);
+      this->edges.insert(oppositeEdge(edge));
     }
 
   } else { 
 
     if(this->directed) {
 
-      Graph<V, Traits>::edges.insert(unWeightEdge(edge));
+      this->edges.insert(unWeightEdge(edge));
     } else {
       // graph is undirected --> insert opposite edge aswell
-      Graph<V, Traits>::edges.insert(unWeightEdge(edge));
-      Graph<V, Traits>::edges.insert(unWeightEdge(oppositeEdge(edge)));
+      this->edges.insert(unWeightEdge(edge));
+      this->edges.insert(unWeightEdge(oppositeEdge(edge)));c 
     }
 
   }
 }
 
 template <typename V, typename Traits>
-void typename Graph<V, Traits>::eraseEdge(const Graph<V, Traits>::Edge<V> &edge) {
+void typename Graph<V, Traits>::eraseEdge(Graph<V, Traits>::Edge<V> const &edge) {
   if(this->directed) {
-  Graph<V, Traits>::edges.erase(edge);
+  this->edges.erase(edge);
   } else {
-    Graph<V, Traits>::edges.erase(edge);
-    Graph<V, Traits>::edges.erase(oppositeEdge(edge));
+    this->edges.erase(edge);
+    this->edges.erase(oppositeEdge(edge));
   }
 }
 
