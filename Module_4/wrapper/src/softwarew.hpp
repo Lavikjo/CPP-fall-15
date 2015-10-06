@@ -1,0 +1,96 @@
+#ifndef ELEC_AS_CPP_SW_HH
+#define ELEC_AS_CPP_SW_HH
+
+#include "software.h"
+#include "bugw.hpp"
+
+#include <string>
+#include <iostream>
+
+class Software {
+
+    public:
+        /* Required public member functions:
+         * ---------------------------------
+         */
+
+        /* Constructor:
+         *
+         * The same as in the C interface, but in C++ fashion, i.e. takes std::strings
+         * instead of char*, etc. The order of the parameters should be the same as
+         * in the C implementation.
+         *
+         * The constructor should throw std::runtime_error in case the C implementation
+         * returns NULL on creation.
+         */
+
+        /* RO3 (Rule of Three):
+         * --------------------
+         */
+
+        /* Destructor:
+         *
+         * The destructor should call the corresponding C function to get rid of the
+         * memory allocations.
+         */
+        /* Copy constructor:
+         *
+         * A C++ style copy constructor, which creates a copy of the Software object.
+         */
+        /* Assignment operator overload:
+         *
+         * A C++ style assignment operator overload for the Software objects.
+         */
+        /* -------------------- */
+
+        /* getName:
+         *
+         * Takes no parameters and returns the name of the Software object as a
+         * std::string.
+         */
+        /* getRevision:
+         *
+         * Takes no parameters and returns the revision number of the Software object
+         * as an integer (int).
+         */
+        /* numberOfBugs:
+         *
+         * Takes no parameters and returns the number of Bugs in the Software as an
+         * integer (int).
+         */
+        /* reportBug:
+         *
+         * Takes a Bug& as a parameter. The function reports a new Bug in the software,
+         * in other words the parameter Bug is appended to the software's bugs list.
+         *
+         * If the C implementation fails, i.e. returns NULL the function throws an
+         * std::runtime_error.
+         */
+        /* fixBug:
+         *
+         * Takes a const std::string& representing the Bug's id as a parameter.
+         *
+         * The function sets the fixed state of the bug with a corresponding id,
+         * in the software's bugs list, as fixed.
+         *
+         * If the C implementation fails, i.e. returns NULL the function throws an
+         * std::runtime_error.
+         */
+        /* Other requirements:
+         * -------------------
+         */
+
+        /* Output stream, << -operator overload:
+         *
+         * An overloaded output stream operator that uses the C implementation to
+         * print the software to the output stream.
+         *
+         */
+    private:
+        /* A pointer to the Software_s structure. This is the link between the wrapper
+         * and the C interface. The C interface functions can be used with this
+         * pointer.
+         */
+};
+
+#endif

@@ -1,0 +1,24 @@
+Test Software, revision: 234
+Priority: Trivial
+None
+Priority: Minor
+None
+Priority: Major
+None
+Priority: Critical
+Id: FTDH145643, Desc: Failed to start., Fixed: No
+Priority: Blocker
+None
+Bugs in report: 1, Bugs fixed: 0/1
+Firefox, revision: 322
+Priority: Trivial
+None
+Priority: Minor
+Id: KDFT087546, Desc: Problem with reading from file, Fixed: Yes
+Priority: Major
+Id: SDFGR35634, Desc: Problem with shutdown, Fixed: No
+Priority: Critical
+None
+Priority: Blocker
+None
+Bugs in report: 2, Bugs fixed: 1/2
