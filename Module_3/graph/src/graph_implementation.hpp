@@ -84,38 +84,51 @@ typename Graph<V, Traits>::edge_list_type Graph<V, Traits>::getNeighbours(const 
 
 template <typename V, typename Traits>
 void Graph<V, Traits>::insertEdge(const typename Graph<V, Traits>::edge_type &edge) {
+ 
+  auto it = this->edges.find(edge);
+  if(it != edges.end()) {
+    this->eraseEdge(*it);
+  }
   
+  if(not this->directed) {
   for(typename Graph<V, Traits>::edge_list_type::iterator it = this->edges.begin(); it != this->edges.end();it++ ) {
-    if((it->first == edge.first) & (it->second == edge.second) & (it->weight != edge.weight)) {
+    if((it->first == edge.first) and (it->second == edge.second) and (it->weight != edge.weight)) {
       // almost the same except different weight
       // remove the original
-      this->edges.erase(it);
+
+      this->eraseEdge(*it);
       return;
     }
   }
+}
 
-  if(not this->weighted) {
+  
 
-    if(this->directed) {
+  if(this->weighted) {
 
-      this->edges.insert(edge);
-      }
-    } else {
-      // graph is undirected --> insert opposite edge aswell
-      this->edges.insert(edge);
-      this->edges.insert(Graph<V, Traits>::edge_type(edge.second,edge.first,edge.weight));
-    
-    }
+      if(this->directed) {
 
-    if(this->directed) {
-
-      this->edges.insert(Graph<V, Traits>::edge_type(edge.first,edge.second, 1));
-    } else {
-      // graph is undirected --> insert opposite edge aswell
-      this->edges.insert(Graph<V, Traits>::edge_type(edge.first,edge.second, 1));
-      this->edges.insert(Graph<V, Traits>::edge_type(edge.second,edge.first, 1));
+        this->edges.insert(edge);
       
+      } else {
+        // graph is undirected --> insert opposite edge aswell
+        this->edges.insert(edge);
+        this->edges.emplace(edge.second, edge.first, edge.weight);
+        //this->edges.insert(Graph<V, Traits>::edge_type(edge.second,edge.first,edge.weight));
+      }
 
+  } else {
+
+      if(this->directed) {
+        this->edges.emplace(edge.first, edge.second, 1);
+        //this->edges.insert(Graph<V, Traits>::edge_type(edge.first,edge.second, 1));
+      } else {
+        // graph is undirected --> insert opposite edge aswell
+        this->edges.emplace(edge.first, edge.second, 1);
+        this->edges.emplace(edge.second, edge.first, 1);
+        //this->edges.insert(Graph<V, Traits>::edge_type(edge.first,edge.second, 1));
+        //this->edges.insert(Graph<V, Traits>::edge_type(edge.second,edge.first, 1));
+        }
   }
 }
 
@@ -132,26 +145,29 @@ void Graph<V, Traits>::eraseEdge(const Graph<V, Traits>::edge_type  &edge) {
 
 template <typename V, typename Traits>
 std::ostream& operator<<(std::ostream &os, const Graph<V, Traits> &graph) {
-    bool sameOrigin = false;
 
-    typename Graph<V, Traits>::edge_list_type edge_list = graph.edges;
+    typename Graph<V, Traits>::edge_list_type edge_list = graph.getEdges();
+    
+    if(edge_list.empty()) {
+      return os;
+    }
+    V temp = edge_list.begin()->first;
 
     for(typename Graph<V, Traits>::edge_list_type::const_iterator it = edge_list.begin(); it != edge_list.end(); it++) {
-        if(it->first != temp){
-        os << it->first << " :";
-        }
-        typename Graph<V, Traits>::edge_list_type neighbours = graph.getNeighbours(it->first);
-    
-        for(typename Graph<V, Traits>::edge_list_type::const_iterator it2 = neighbours.begin(); it2 != neighbours.end(); it2++) {
-
-            os << " " << it2->second << "(" << it2->weight << ")";
-        }
-        if(it->first != temp) {
+        if((it == edge_list.begin()) | !(temp == it->first)) {
+          if(it != edge_list.begin()) {
             os << std::endl;
-        }
-        V temp = it->first;
-    }
+          }
 
+          os << it->first << " :";
+          temp = it->first;
+      
+        
+        }
+        os << " " << it->second << "(" << it->weight << ")" ;
+        
+    }
+    
     return os;
 }
 
