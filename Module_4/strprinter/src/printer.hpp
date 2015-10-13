@@ -21,4 +21,17 @@
  *
  * Implement the class accordingly and do not forget the virtual destructor..
  */
+ class StringPrinter { 
+ public:
+ 	StringPrinter(std::ostream &os = std::cout) : os(os) {}
+
+ 	virtual ~StringPrinter() {};
+
+ 	virtual StringPrinter* clone() const = 0;
+
+ 	virtual StringPrinter& operator()(const std::string& str) = 0;
+
+ protected:
+ 	std::ostream &os;
+ };
 #endif

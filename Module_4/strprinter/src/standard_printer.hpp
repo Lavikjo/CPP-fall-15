@@ -17,8 +17,7 @@ public:
     StandardPrinter(std::ostream &os = std::cout) : StringPrinter(os)
     { }
     /* Copy this object */
-    StandardPrinter* clone() const
-    {
+    StandardPrinter* clone() const {
         return new StandardPrinter(os);
     }
     virtual StringPrinter& operator()(const std::string& str)
