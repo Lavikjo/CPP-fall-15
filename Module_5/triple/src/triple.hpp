@@ -1,6 +1,6 @@
-#ifndef ELEC_CPP_TRIPLES
-#define ELEC_CPP_TRIPLES
-
+#ifndef ELEC_CPP_TRIPLES_HH
+#define ELEC_CPP_TRIPLES_HH
+#include <typeinfo>
 /* Add include guards here */
 
 /* Class: Triple
@@ -23,6 +23,9 @@
  template<typename T1, typename T2, typename T3>
  class Triple {
  public:
+
+ 	Triple(const T1 &first, const T2 &second, const T3 &third) : f(first), s(second), t(third) {}
+
  	/* Public member functions:
  * ------------------------
  * The triple class has three public member functions, which are used to
@@ -40,19 +43,19 @@
  * The function takes no parameters.
  * The function returns a const reference to the third value of the triple.
  */
- 	template<typename T1, typename T2, typename T3>
+ 	
  	const T1& first() const {
- 		return first;
+ 		return f;
  	}
  	
- 	template<typename T1, typename T2, typename T3>
+ 	
  	const T2& second() const {
- 		return second;
+ 		return s;
  	}
 
- 	template<typename T1, typename T2, typename T3>
+ 	
  	const T3& third() const {
- 		return third;
+ 		return t;
  	}
 
  	/* Operator overloads:
@@ -81,17 +84,12 @@
  * Note that there is NO new line at the end of the output.
  *
  */
- 	template<typename T1, typename T2, typename T3>
- 	void operator=(const Triple<typename T1, typename T2, typename T3> &t) {
-		first = t.first;
-		second = t.second;
-		third = t.third;
-	}
+ 
 
 private:
-	T1 first;
-	T2 second;
-	T3 third;
+	T1 f;
+	T2 s;
+	T3 t;
  };
 
 
@@ -110,9 +108,19 @@ private:
  * (note: values, not references) as a parameter and returns a triple created
  * from those three values.
  */
+ 
+/*
+template<typename T>
+ bool isHomogenous(const Triple<T, T, T>) {
+
+ }
+works in compile time as typeid works in runtime
+
+*/ 
+
 
 template<typename T1, typename T2, typename T3>
-bool isHomogenous(const Triple<typename T1, typename T2, typename T3> t) const {
+bool isHomogenous(const Triple<T1, T2, T3> t){
 	if(typeid(t.first()) == typeid(t.second()) && typeid(t.second()) == typeid(t.third())) {
 		return true;
 	} else {
@@ -122,29 +130,25 @@ bool isHomogenous(const Triple<typename T1, typename T2, typename T3> t) const {
 
 template<typename T1, typename T2, typename T3>
 Triple<T1, T2, T3> makeTriple(const T1 first, const T2 second, const T3 third){
-	Triple<T1, T2, T3> temp;
-	temp.first = first;
-	temp.second = second;
-	temp.third = third;
-
+	Triple<T1, T2, T3> temp = Triple<T1, T2, T3>(first, second, third);
 	return temp;
 }
 
 template<typename T1, typename T2, typename T3>
-bool operator==(const Triple<typename T1, typename T2, typename T3> &lhs, const Triple<typename T1, typename T2, typename T3> &rhs) {
+bool operator==(const Triple<T1, T2, T3> &lhs, const Triple<T1, T2, T3> &rhs) {
 	return (lhs.first() == rhs.first() &&
 			lhs.second() == rhs.second() &&
 			lhs.third() == rhs.third());
 }
 
 template<typename T1, typename T2, typename T3>
-bool operator!=(const Triple<typename T1, typename T2, typename T3> &lhs, const Triple<typename T1, typename T2, typename T3> &rhs) {
+bool operator!=(const Triple<T1, T2, T3> &lhs, const Triple<T1, T2, T3> &rhs) {
 	return !(lhs == rhs);
 }
 
 template<typename T1, typename T2, typename T3>
-std::ostream& operator<<(std::ostream& os, const Triple<typename T1, typename T2, typename T3> t) {
-	os << "[<" << t.first() << ">, <" << t.second() << ">, <" << t.third() << ">]"
+std::ostream& operator<<(std::ostream& os, const Triple<T1, T2, T3> t) {
+	os << "[" << t.first() << ", " << t.second() << ", " << t.third() << "]";
 	return os;
 }
 
